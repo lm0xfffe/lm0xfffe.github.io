@@ -6,14 +6,24 @@
     <description>Recent content in Posts on PaperCSS</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Dec 2020 17:57:31 +0800</lastBuildDate><atom:link href="https://lm0xfffe.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Dec 2020 10:57:31 +0800</lastBuildDate><atom:link href="https://lm0xfffe.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>&#34;My First Post&#34;</title>
+      <title>&#34;Common Lisp&#34;</title>
       <link>https://lm0xfffe.github.io/posts/my-first-post/</link>
-      <pubDate>Thu, 10 Dec 2020 17:57:31 +0800</pubDate>
+      <pubDate>Mon, 14 Dec 2020 10:57:31 +0800</pubDate>
       
       <guid>https://lm0xfffe.github.io/posts/my-first-post/</guid>
-      <description> test   </description>
+      <description>安装   sudo pacman -S sbcl
+  将文件内函数发送到Lisp进行求值并编译   在DEFUN定义内部的任意位置或者刚好在其后面时，输入C-c C-c, 这将启动slime-compile-defun命令.
+ 然后C-c C-z或者C-x b切换到repl进行调用。
+ 如果出错将启动调试器，输入q退出调试器。
+ 如果一个文件中有大量的定义时，加载整个文件更加便利：
+  (load &amp;#34;hello.lisp&amp;#34;)
+  或者先编译后加载：（load (compile &amp;#34;hello.lisp&amp;#34;)）
+  不使用REPL,在源文件中加载：C-c C-l调用命令slime-load-file加载文件；
+  或者C-c C-k 编译并加载当前缓冲区所关联的文件
+      全局变量：defvar 和 星号   (defvar db nil) push宏添加项： (defun add-record (cd) (push cd db))
+  关键字形参   (defun foo (&amp;amp;key a b c )) (foo :c 1 :a 2 b:66)</description>
     </item>
     
   </channel>

@@ -26,7 +26,7 @@
 
   
   
-  <title>&#34;My First Post&#34; | PaperCSS</title>
+  <title>&#34;Common Lisp&#34; | PaperCSS</title>
 </head>
   <body>
     <div class="container paper">
@@ -61,12 +61,214 @@
       <main>
         
 
-<h1>&#34;My First Post&#34;</h1>
+<h1>&#34;Common Lisp&#34;</h1>
 
 <div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
-test
+安装
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+sudo pacman -S sbcl</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+将文件内函数发送到Lisp进行求值并编译
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+在DEFUN定义内部的任意位置或者刚好在其后面时，输入C-c C-c, 这将启动slime-compile-defun命令.</p>
+<p>
+然后C-c C-z或者C-x b切换到repl进行调用。</p>
+<p>
+如果出错将启动调试器，输入q退出调试器。</p>
+<p>
+如果一个文件中有大量的定义时，加载整个文件更加便利：</p>
+<ul>
+<li>
+<p>(load &#34;hello.lisp&#34;)</p>
+</li>
+<li>
+<p>或者先编译后加载：（load (compile &#34;hello.lisp&#34;)）</p>
+</li>
+<li>
+<p>不使用REPL,在源文件中加载：C-c C-l调用命令slime-load-file加载文件；</p>
+<ul>
+<li>
+<p>或者C-c C-k 编译并加载当前缓冲区所关联的文件</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+全局变量：defvar 和 星号 
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>
+(defvar <strong><strong>db</strong></strong> nil)
+push宏添加项： (defun add-record (cd) (push cd <strong><strong>db</strong></strong>))</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+关键字形参
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>
+(defun foo (&amp;key a b c ))
+(foo :c 1 :a 2 b:66)</p>
+<p>
+默认值
+(defun foo (&amp;key a (b 20) (c 30 c-p)))
+(foo) =&gt; (NIL 20 30 NIL) ;;其中c-p表示c变量是否是传入，还是使用的默认值</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+常量名：以+开始和结尾
+</h2>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+原子
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>
+原子可以被分为两个类别：符号和所有其他内容。
+符号就是变量名。所有其他内容包括数字和字符串，都是自求值对象。</p>
+<p>
+符号也可能是自求值–它们所命名的变量可以被赋值成符号本身的值，比如常量T和NIL，即所谓的真值和假值。
+另一类自求值是*关键字*符号–以名字冒号开始的符号。会自动定义个以此命名的常值变量并以该符号作为其值。</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+函数
+</h2>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+特殊表达式
+</h2>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+宏
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>
+一个以S-表达式为其参数的函数，并返回一个LISP形式，然后对其求值并用该值取代宏形式。
+求值分为两个阶段：</p>
+<ol>
+<li>
+<p>宏形式的元素不经求值即被传递到宏函数中；</p>
+</li>
+<li>
+<p>由宏函数返回的形式（展开式）按照正常的求值规则进行求值。</p>
+</li>
+</ol>
+<p>COMPILE-FILE编译时展开，LOAD加载时进行执行求值。</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+真，假和等价
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>
+符号NIL是唯一的假值；其他都是真值。
+符号T是标准的真值。
+NIL是唯一一个即是原子又是列表的对象。可用来表示空列表。</p>
+<p>
+等价：</p>
+<ul>
+<li>
+<p>=用来比较数字；</p>
+</li>
+<li>
+<p>CHAR=比较字符串，以此类推；</p>
+</li>
+</ul>
+<p>四个通用等价谓词：</p>
+<ul>
+<li>
+<p>EQ：测试对象标识；不要用于比较数字和字符串；</p>
+</li>
+<li>
+<p>EQL：类似EQ，可用来比较数字和字符串；</p>
+</li>
+<li>
+<p>EQUAL：如果两个对象值或者结构内容都相同，则视为等价；</p>
+</li>
+<li>
+<p>EQUALP：同EQUAL，更宽松，忽略大小写。1,1.0是等价的。</p>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+函数 
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>
+定义：</p>
+<div class="src src-lisp">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(defun name (parameter*)
+  <span style="color:#e6db74">&#34;OPTION documentation string.&#34;</span>
+  body-form*)</code></pre></div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+可选形参
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>
+在必要形参的名字之后放置符号&amp;optional，这个符号后面的都属于可选的形参。</p>
+<div id="outline-container-headline-13" class="outline-4">
+<h4 id="headline-13">
+默认值
+</h4>
+<div id="outline-text-headline-13" class="outline-text-4">
+<ul>
+<li>
+<p>简单的提供一个值：(defun foo (a &amp;optional (b <strong>10</strong>)) (list a b))</p>
+</li>
+<li>
+<p>通过其他参数来赋值：(defun foo (a &amp;option (b <strong>a</strong>)) (list a b))</p>
+</li>
+</ul>
+<div id="outline-container-headline-14" class="outline-5">
+<h5 id="headline-14">
+判断是否使用了默认值
+</h5>
+<div id="outline-text-headline-14" class="outline-text-5">
+<p>
+在默认值表达式之后添加一个变量名，如果使用了默认值，则此变量值为T，否则为NIL；
+此变量名命名规则：真实形参名-supplied-p
+(defun foo (a b &amp;optional (c 3 c-supplied-p)) (list a b c c-supplied-p))</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+剩余形参(可变数量的参数)
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p>
+(defun format (stream string &amp;rest values) …)
+(defun + (&amp;rest numbers) … )
+符号&amp;rest。</p>
+</div>
+</div>
+</div>
 </div>
 
   
